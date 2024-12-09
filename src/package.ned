@@ -1,0 +1,3 @@
+package first;
+
+@license(LGPL);

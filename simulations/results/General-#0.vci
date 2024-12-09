@@ -1,0 +1,2475 @@
+file 106506 1733768038                                          
+version 3
+run General-0-20241209-23:43:23-15612
+attr configname General
+attr datetime 20241209-23:43:23
+attr datetimef 20241209-234323
+attr experiment General
+attr inifile omnetpp.ini
+attr iterationvars ""
+attr iterationvarsd ""
+attr iterationvarsf ""
+attr measurement ""
+attr network EthNet
+attr processid 15612
+attr repetition 0
+attr replication #0
+attr resultdir results
+attr runnumber 0
+attr seedset 0
+config image-path ../../inet4.5/images
+config network EthNet
+config sim-time-limit 10s
+config **.client1.numApps 1
+config **.client1.app[0].typename TcpSessionApp
+config **.client1.app[0].connectAddress "\"server\""
+config **.client1.app[0].connectPort 1000
+config **.client1.app[0].sendBytes 1MB
+config **.client2.numApps 1
+config **.client2.app[0].typename TcpSessionApp
+config **.client2.app[0].connectAddress "\"server\""
+config **.client2.app[0].connectPort 1001
+config **.client2.app[0].sendBytes 1MB
+config **.client3.numApps 1
+config **.client3.app[0].typename TcpSessionApp
+config **.client3.app[0].connectAddress "\"server\""
+config **.client3.app[0].connectPort 1002
+config **.client3.app[0].sendBytes 1MB
+config **.client4.numApps 1
+config **.client4.app[0].typename TcpSessionApp
+config **.client4.app[0].connectAddress "\"server\""
+config **.client4.app[0].connectPort 1003
+config **.client4.app[0].sendBytes 1MB
+config **.server.numApps 4
+config **.server.app[0].typename TcpEchoApp
+config **.server*.app[0].localPort 1000
+config **.server.app[1].typename TcpEchoApp
+config **.server*.app[1].localPort 1001
+config **.server.app[2].typename TcpEchoApp
+config **.server*.app[2].localPort 1002
+config **.server.app[3].typename TcpEchoApp
+config **.server*.app[3].localPort 1003
+
+vector 0 EthNet.server.ethernet encapPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source encapPk
+attr title "packets encapsulated, packetBytes"
+vector 1 EthNet.server.ethernet decapPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source decapPk
+attr title "packets decapsulated, packetBytes"
+vector 2 EthNet.server.ethernet pauseSent:vector ETV
+attr recordingmode vector
+attr title "pause sent"
+vector 3 EthNet.server.lo[0].lo rcvdPkFromHl:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceivedFromUpper
+attr title "packets received from higher layer, packetBytes"
+vector 4 EthNet.server.lo[0].lo passedUpPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToUpper
+attr title "packets passed to higher layer, packetBytes"
+vector 5 EthNet.server.lo[0] packetDropInterfaceDown:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsInterfaceDown(packetDropped)
+attr title "packet drops: interface down, packetBytes"
+vector 6 EthNet.server.lo[0] packetDropNoCarrier:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsNoCarrier(packetDropped)
+attr title "packet drops: no carrier, packetBytes"
+vector 7 EthNet.server.eth[0].queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+vector 8 EthNet.server.eth[0].queue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+vector 9 EthNet.server.eth[0].queue queueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(packetPulled)
+attr title "queueing times"
+attr unit s
+vector 10 EthNet.server.eth[0].queue incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPushStarted)
+attr title "incoming packet lengths"
+attr unit b
+vector 11 EthNet.server.eth[0].queue incomingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPushStarted)
+attr title "incoming datarate"
+attr unit bps
+vector 12 EthNet.server.eth[0].queue outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPulled)
+attr title "outgoing packet lengths"
+attr unit b
+vector 13 EthNet.server.eth[0].queue outgoingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPulled)
+attr title "outgoing datarate"
+attr unit bps
+vector 14 EthNet.server.eth[0].queue droppedPacketLengthsQueueOverflow:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetDropReasonIsQueueOverflow(packetDropped))
+attr title "dropped packet lengths: queue overflow"
+attr unit b
+vector 15 EthNet.server.eth[0].queue flowQueueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(demuxFlow(packetPulled))
+attr title "flow queueing times"
+attr unit s
+vector 16 EthNet.server.eth[0].queue flowIncomingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(flowPacketLength(demuxFlow(packetPushStarted)))
+attr title "flow specific incoming data rate"
+attr unit bps
+vector 17 EthNet.server.eth[0].queue flowOutgoingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(flowPacketLength(demuxFlow(packetPulled)))
+attr title "flow specific outgoing data rate"
+attr unit bps
+vector 18 EthNet.server.eth[0].mac txPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToLower
+attr title "packets transmitted, packetBytes"
+vector 19 EthNet.server.eth[0].mac rxPkOk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source rxPkOk
+attr title "packets received OK, packetBytes"
+vector 20 EthNet.server.eth[0].mac passedUpPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToUpper
+attr title "packets passed to higher layer, packetBytes"
+vector 21 EthNet.server.eth[0].mac txPausePkUnits:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr title "pause units sent"
+vector 22 EthNet.server.eth[0].mac rxPausePkUnits:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr title "pause units received"
+vector 23 EthNet.server.eth[0].mac packetReceivedFromUpper:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceivedFromUpper
+attr title "packet bytes from higher layer, packetBytes"
+vector 24 EthNet.server.eth[0].mac packetDropIncorrectlyReceived:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsIncorrectlyReceived(packetDropped)
+attr title "packet drop: incorrectly received, packetBytes"
+vector 25 EthNet.server.eth[0].mac packetDropInterfaceDown:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsInterfaceDown(packetDropped)
+attr title "packet drop: interface down, packetBytes"
+vector 26 EthNet.server.eth[0].mac packetDropNotAddressedToUs:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsNotAddressedToUs(packetDropped)
+attr title "packet drop: not addressed to us, packetBytes"
+vector 27 EthNet.server.eth[0] packetDropInterfaceDown:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsInterfaceDown(packetDropped)
+attr title "packet drops: interface down, packetBytes"
+vector 28 EthNet.server.eth[0] packetDropNoCarrier:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsNoCarrier(packetDropped)
+attr title "packet drops: no carrier, packetBytes"
+vector 29 EthNet.server.eth[1].queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+vector 30 EthNet.server.eth[1].queue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+vector 31 EthNet.server.eth[1].queue queueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(packetPulled)
+attr title "queueing times"
+attr unit s
+vector 32 EthNet.server.eth[1].queue incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPushStarted)
+attr title "incoming packet lengths"
+attr unit b
+vector 33 EthNet.server.eth[1].queue incomingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPushStarted)
+attr title "incoming datarate"
+attr unit bps
+vector 34 EthNet.server.eth[1].queue outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPulled)
+attr title "outgoing packet lengths"
+attr unit b
+vector 35 EthNet.server.eth[1].queue outgoingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPulled)
+attr title "outgoing datarate"
+attr unit bps
+vector 36 EthNet.server.eth[1].queue droppedPacketLengthsQueueOverflow:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetDropReasonIsQueueOverflow(packetDropped))
+attr title "dropped packet lengths: queue overflow"
+attr unit b
+vector 37 EthNet.server.eth[1].queue flowQueueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(demuxFlow(packetPulled))
+attr title "flow queueing times"
+attr unit s
+vector 38 EthNet.server.eth[1].queue flowIncomingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(flowPacketLength(demuxFlow(packetPushStarted)))
+attr title "flow specific incoming data rate"
+attr unit bps
+vector 39 EthNet.server.eth[1].queue flowOutgoingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(flowPacketLength(demuxFlow(packetPulled)))
+attr title "flow specific outgoing data rate"
+attr unit bps
+vector 40 EthNet.server.eth[1].mac txPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToLower
+attr title "packets transmitted, packetBytes"
+vector 41 EthNet.server.eth[1].mac rxPkOk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source rxPkOk
+attr title "packets received OK, packetBytes"
+vector 42 EthNet.server.eth[1].mac passedUpPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToUpper
+attr title "packets passed to higher layer, packetBytes"
+vector 43 EthNet.server.eth[1].mac txPausePkUnits:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr title "pause units sent"
+vector 44 EthNet.server.eth[1].mac rxPausePkUnits:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr title "pause units received"
+vector 45 EthNet.server.eth[1].mac packetReceivedFromUpper:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceivedFromUpper
+attr title "packet bytes from higher layer, packetBytes"
+vector 46 EthNet.server.eth[1].mac packetDropIncorrectlyReceived:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsIncorrectlyReceived(packetDropped)
+attr title "packet drop: incorrectly received, packetBytes"
+vector 47 EthNet.server.eth[1].mac packetDropInterfaceDown:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsInterfaceDown(packetDropped)
+attr title "packet drop: interface down, packetBytes"
+vector 48 EthNet.server.eth[1].mac packetDropNotAddressedToUs:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsNotAddressedToUs(packetDropped)
+attr title "packet drop: not addressed to us, packetBytes"
+vector 49 EthNet.server.eth[1] packetDropInterfaceDown:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsInterfaceDown(packetDropped)
+attr title "packet drops: interface down, packetBytes"
+vector 50 EthNet.server.eth[1] packetDropNoCarrier:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsNoCarrier(packetDropped)
+attr title "packet drops: no carrier, packetBytes"
+vector 51 EthNet.server.eth[2].queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+vector 52 EthNet.server.eth[2].queue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+vector 53 EthNet.server.eth[2].queue queueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(packetPulled)
+attr title "queueing times"
+attr unit s
+vector 54 EthNet.server.eth[2].queue incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPushStarted)
+attr title "incoming packet lengths"
+attr unit b
+vector 55 EthNet.server.eth[2].queue incomingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPushStarted)
+attr title "incoming datarate"
+attr unit bps
+vector 56 EthNet.server.eth[2].queue outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPulled)
+attr title "outgoing packet lengths"
+attr unit b
+vector 57 EthNet.server.eth[2].queue outgoingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPulled)
+attr title "outgoing datarate"
+attr unit bps
+vector 58 EthNet.server.eth[2].queue droppedPacketLengthsQueueOverflow:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetDropReasonIsQueueOverflow(packetDropped))
+attr title "dropped packet lengths: queue overflow"
+attr unit b
+vector 59 EthNet.server.eth[2].queue flowQueueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(demuxFlow(packetPulled))
+attr title "flow queueing times"
+attr unit s
+vector 60 EthNet.server.eth[2].queue flowIncomingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(flowPacketLength(demuxFlow(packetPushStarted)))
+attr title "flow specific incoming data rate"
+attr unit bps
+vector 61 EthNet.server.eth[2].queue flowOutgoingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(flowPacketLength(demuxFlow(packetPulled)))
+attr title "flow specific outgoing data rate"
+attr unit bps
+vector 62 EthNet.server.eth[2].mac txPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToLower
+attr title "packets transmitted, packetBytes"
+vector 63 EthNet.server.eth[2].mac rxPkOk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source rxPkOk
+attr title "packets received OK, packetBytes"
+vector 64 EthNet.server.eth[2].mac passedUpPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToUpper
+attr title "packets passed to higher layer, packetBytes"
+vector 65 EthNet.server.eth[2].mac txPausePkUnits:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr title "pause units sent"
+vector 66 EthNet.server.eth[2].mac rxPausePkUnits:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr title "pause units received"
+vector 67 EthNet.server.eth[2].mac packetReceivedFromUpper:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceivedFromUpper
+attr title "packet bytes from higher layer, packetBytes"
+vector 68 EthNet.server.eth[2].mac packetDropIncorrectlyReceived:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsIncorrectlyReceived(packetDropped)
+attr title "packet drop: incorrectly received, packetBytes"
+vector 69 EthNet.server.eth[2].mac packetDropInterfaceDown:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsInterfaceDown(packetDropped)
+attr title "packet drop: interface down, packetBytes"
+vector 70 EthNet.server.eth[2].mac packetDropNotAddressedToUs:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsNotAddressedToUs(packetDropped)
+attr title "packet drop: not addressed to us, packetBytes"
+vector 71 EthNet.server.eth[2] packetDropInterfaceDown:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsInterfaceDown(packetDropped)
+attr title "packet drops: interface down, packetBytes"
+vector 72 EthNet.server.eth[2] packetDropNoCarrier:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsNoCarrier(packetDropped)
+attr title "packet drops: no carrier, packetBytes"
+vector 73 EthNet.server.eth[3].queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+vector 74 EthNet.server.eth[3].queue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+vector 75 EthNet.server.eth[3].queue queueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(packetPulled)
+attr title "queueing times"
+attr unit s
+vector 76 EthNet.server.eth[3].queue incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPushStarted)
+attr title "incoming packet lengths"
+attr unit b
+vector 77 EthNet.server.eth[3].queue incomingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPushStarted)
+attr title "incoming datarate"
+attr unit bps
+vector 78 EthNet.server.eth[3].queue outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPulled)
+attr title "outgoing packet lengths"
+attr unit b
+vector 79 EthNet.server.eth[3].queue outgoingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPulled)
+attr title "outgoing datarate"
+attr unit bps
+vector 80 EthNet.server.eth[3].queue droppedPacketLengthsQueueOverflow:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetDropReasonIsQueueOverflow(packetDropped))
+attr title "dropped packet lengths: queue overflow"
+attr unit b
+vector 81 EthNet.server.eth[3].queue flowQueueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(demuxFlow(packetPulled))
+attr title "flow queueing times"
+attr unit s
+vector 82 EthNet.server.eth[3].queue flowIncomingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(flowPacketLength(demuxFlow(packetPushStarted)))
+attr title "flow specific incoming data rate"
+attr unit bps
+vector 83 EthNet.server.eth[3].queue flowOutgoingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(flowPacketLength(demuxFlow(packetPulled)))
+attr title "flow specific outgoing data rate"
+attr unit bps
+vector 84 EthNet.server.eth[3].mac txPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToLower
+attr title "packets transmitted, packetBytes"
+vector 85 EthNet.server.eth[3].mac rxPkOk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source rxPkOk
+attr title "packets received OK, packetBytes"
+vector 86 EthNet.server.eth[3].mac passedUpPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToUpper
+attr title "packets passed to higher layer, packetBytes"
+vector 87 EthNet.server.eth[3].mac txPausePkUnits:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr title "pause units sent"
+vector 88 EthNet.server.eth[3].mac rxPausePkUnits:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr title "pause units received"
+vector 89 EthNet.server.eth[3].mac packetReceivedFromUpper:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceivedFromUpper
+attr title "packet bytes from higher layer, packetBytes"
+vector 90 EthNet.server.eth[3].mac packetDropIncorrectlyReceived:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsIncorrectlyReceived(packetDropped)
+attr title "packet drop: incorrectly received, packetBytes"
+vector 91 EthNet.server.eth[3].mac packetDropInterfaceDown:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsInterfaceDown(packetDropped)
+attr title "packet drop: interface down, packetBytes"
+vector 92 EthNet.server.eth[3].mac packetDropNotAddressedToUs:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsNotAddressedToUs(packetDropped)
+attr title "packet drop: not addressed to us, packetBytes"
+vector 93 EthNet.server.eth[3] packetDropInterfaceDown:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsInterfaceDown(packetDropped)
+attr title "packet drops: interface down, packetBytes"
+vector 94 EthNet.server.eth[3] packetDropNoCarrier:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsNoCarrier(packetDropped)
+attr title "packet drops: no carrier, packetBytes"
+vector 95 EthNet.server.ipv4.ip packetDropAddressResolutionFailed:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsAddressResolutionFailed(packetDropped)
+attr title "packet drop: address resolution failed, packetBytes"
+vector 96 EthNet.server.ipv4.ip packetDropHopLimitReached:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsHopLimitReached(packetDropped)
+attr title "packet drop: hop limit reached, packetBytes"
+vector 97 EthNet.server.ipv4.ip packetDropForwardingDisabled:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsForwardingDisabled(packetDropped)
+attr title "packet drop: forwarding disabled, packetBytes"
+vector 98 EthNet.server.ipv4.ip packetDropNoInterfaceFound:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsNoInterfaceFound(packetDropped)
+attr title "packet drop: no interface found, packetBytes"
+vector 99 EthNet.server.ipv4.ip packetDropNoRouteFound:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsNoRouteFound(packetDropped)
+attr title "packet drop: no route found, packetBytes"
+vector 100 EthNet.server.ipv4.ip packetDropUndefined:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsUndefined(packetDropped)
+attr title "packet drop: undefined, packetBytes"
+vector 101 EthNet.server.ipv4.arp arpRequestSent:vector(packetBytes) ETV
+attr recordingmode vector(packetBytes)
+attr source arpRequestSent
+attr title "ARP request sent, packetBytes"
+vector 102 EthNet.server.ipv4.arp arpReplySent:vector(packetBytes) ETV
+attr recordingmode vector(packetBytes)
+attr source arpReplySent
+attr title "ARP replies sent, packetBytes"
+vector 103 EthNet.server.udp packetSent:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSent
+attr title "packets sent, packetBytes"
+vector 104 EthNet.server.udp packetReceived:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceived
+attr title "packets received, packetBytes"
+vector 105 EthNet.server.udp passedUpPk:vector(count) ETV
+attr interpolationmode none
+attr recordingmode vector(count)
+attr source packetSentToUpper
+attr title "packets passed up, count"
+vector 106 EthNet.server.udp droppedPkWrongPort:vector(count) ETV
+attr interpolationmode none
+attr recordingmode vector(count)
+attr source packetDropReasonIsNoPortFound(packetDropped)
+attr title "packets dropped (wrong port), count"
+vector 107 EthNet.server.udp droppedPkBadChecksum:vector(count) ETV
+attr interpolationmode none
+attr recordingmode vector(count)
+attr source packetDropReasonIsIncorrectlyReceived(packetDropped)
+attr title "packets dropped (checksum error), count"
+vector 108 EthNet.server.app[0] packetReceived:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceived
+attr title "packets received, packetBytes"
+vector 109 EthNet.server.app[0] packetSent:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSent
+attr title "packets sent, packetBytes"
+vector 110 EthNet.server.app[0] endToEndDelay:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source dataAge(packetReceived)
+attr title "end-to-end delay"
+attr unit s
+vector 111 EthNet.server.app[1] packetReceived:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceived
+attr title "packets received, packetBytes"
+vector 112 EthNet.server.app[1] packetSent:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSent
+attr title "packets sent, packetBytes"
+vector 113 EthNet.server.app[1] endToEndDelay:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source dataAge(packetReceived)
+attr title "end-to-end delay"
+attr unit s
+vector 114 EthNet.server.app[2] packetReceived:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceived
+attr title "packets received, packetBytes"
+vector 115 EthNet.server.app[2] packetSent:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSent
+attr title "packets sent, packetBytes"
+vector 116 EthNet.server.app[2] endToEndDelay:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source dataAge(packetReceived)
+attr title "end-to-end delay"
+attr unit s
+vector 117 EthNet.server.app[3] packetReceived:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceived
+attr title "packets received, packetBytes"
+vector 118 EthNet.server.app[3] packetSent:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSent
+attr title "packets sent, packetBytes"
+vector 119 EthNet.server.app[3] endToEndDelay:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source dataAge(packetReceived)
+attr title "end-to-end delay"
+attr unit s
+vector 120 EthNet.client2.ethernet encapPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source encapPk
+attr title "packets encapsulated, packetBytes"
+vector 121 EthNet.client2.ethernet decapPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source decapPk
+attr title "packets decapsulated, packetBytes"
+vector 122 EthNet.client2.ethernet pauseSent:vector ETV
+attr recordingmode vector
+attr title "pause sent"
+vector 123 EthNet.client2.lo[0].lo rcvdPkFromHl:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceivedFromUpper
+attr title "packets received from higher layer, packetBytes"
+vector 124 EthNet.client2.lo[0].lo passedUpPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToUpper
+attr title "packets passed to higher layer, packetBytes"
+vector 125 EthNet.client2.lo[0] packetDropInterfaceDown:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsInterfaceDown(packetDropped)
+attr title "packet drops: interface down, packetBytes"
+vector 126 EthNet.client2.lo[0] packetDropNoCarrier:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsNoCarrier(packetDropped)
+attr title "packet drops: no carrier, packetBytes"
+vector 127 EthNet.client2.eth[0].queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+vector 128 EthNet.client2.eth[0].queue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+vector 129 EthNet.client2.eth[0].queue queueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(packetPulled)
+attr title "queueing times"
+attr unit s
+vector 130 EthNet.client2.eth[0].queue incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPushStarted)
+attr title "incoming packet lengths"
+attr unit b
+vector 131 EthNet.client2.eth[0].queue incomingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPushStarted)
+attr title "incoming datarate"
+attr unit bps
+vector 132 EthNet.client2.eth[0].queue outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPulled)
+attr title "outgoing packet lengths"
+attr unit b
+vector 133 EthNet.client2.eth[0].queue outgoingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPulled)
+attr title "outgoing datarate"
+attr unit bps
+vector 134 EthNet.client2.eth[0].queue droppedPacketLengthsQueueOverflow:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetDropReasonIsQueueOverflow(packetDropped))
+attr title "dropped packet lengths: queue overflow"
+attr unit b
+vector 135 EthNet.client2.eth[0].queue flowQueueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(demuxFlow(packetPulled))
+attr title "flow queueing times"
+attr unit s
+vector 136 EthNet.client2.eth[0].queue flowIncomingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(flowPacketLength(demuxFlow(packetPushStarted)))
+attr title "flow specific incoming data rate"
+attr unit bps
+vector 137 EthNet.client2.eth[0].queue flowOutgoingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(flowPacketLength(demuxFlow(packetPulled)))
+attr title "flow specific outgoing data rate"
+attr unit bps
+vector 138 EthNet.client2.eth[0].mac txPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToLower
+attr title "packets transmitted, packetBytes"
+vector 139 EthNet.client2.eth[0].mac rxPkOk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source rxPkOk
+attr title "packets received OK, packetBytes"
+vector 140 EthNet.client2.eth[0].mac passedUpPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToUpper
+attr title "packets passed to higher layer, packetBytes"
+vector 141 EthNet.client2.eth[0].mac txPausePkUnits:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr title "pause units sent"
+vector 142 EthNet.client2.eth[0].mac rxPausePkUnits:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr title "pause units received"
+vector 143 EthNet.client2.eth[0].mac packetReceivedFromUpper:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceivedFromUpper
+attr title "packet bytes from higher layer, packetBytes"
+vector 144 EthNet.client2.eth[0].mac packetDropIncorrectlyReceived:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsIncorrectlyReceived(packetDropped)
+attr title "packet drop: incorrectly received, packetBytes"
+vector 145 EthNet.client2.eth[0].mac packetDropInterfaceDown:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsInterfaceDown(packetDropped)
+attr title "packet drop: interface down, packetBytes"
+vector 146 EthNet.client2.eth[0].mac packetDropNotAddressedToUs:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsNotAddressedToUs(packetDropped)
+attr title "packet drop: not addressed to us, packetBytes"
+vector 147 EthNet.client2.eth[0] packetDropInterfaceDown:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsInterfaceDown(packetDropped)
+attr title "packet drops: interface down, packetBytes"
+vector 148 EthNet.client2.eth[0] packetDropNoCarrier:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsNoCarrier(packetDropped)
+attr title "packet drops: no carrier, packetBytes"
+vector 149 EthNet.client2.ipv4.ip packetDropAddressResolutionFailed:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsAddressResolutionFailed(packetDropped)
+attr title "packet drop: address resolution failed, packetBytes"
+vector 150 EthNet.client2.ipv4.ip packetDropHopLimitReached:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsHopLimitReached(packetDropped)
+attr title "packet drop: hop limit reached, packetBytes"
+vector 151 EthNet.client2.ipv4.ip packetDropForwardingDisabled:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsForwardingDisabled(packetDropped)
+attr title "packet drop: forwarding disabled, packetBytes"
+vector 152 EthNet.client2.ipv4.ip packetDropNoInterfaceFound:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsNoInterfaceFound(packetDropped)
+attr title "packet drop: no interface found, packetBytes"
+vector 153 EthNet.client2.ipv4.ip packetDropNoRouteFound:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsNoRouteFound(packetDropped)
+attr title "packet drop: no route found, packetBytes"
+vector 154 EthNet.client2.ipv4.ip packetDropUndefined:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsUndefined(packetDropped)
+attr title "packet drop: undefined, packetBytes"
+vector 155 EthNet.client2.ipv4.arp arpRequestSent:vector(packetBytes) ETV
+attr recordingmode vector(packetBytes)
+attr source arpRequestSent
+attr title "ARP request sent, packetBytes"
+vector 156 EthNet.client2.ipv4.arp arpReplySent:vector(packetBytes) ETV
+attr recordingmode vector(packetBytes)
+attr source arpReplySent
+attr title "ARP replies sent, packetBytes"
+vector 157 EthNet.client2.udp packetSent:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSent
+attr title "packets sent, packetBytes"
+vector 158 EthNet.client2.udp packetReceived:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceived
+attr title "packets received, packetBytes"
+vector 159 EthNet.client2.udp passedUpPk:vector(count) ETV
+attr interpolationmode none
+attr recordingmode vector(count)
+attr source packetSentToUpper
+attr title "packets passed up, count"
+vector 160 EthNet.client2.udp droppedPkWrongPort:vector(count) ETV
+attr interpolationmode none
+attr recordingmode vector(count)
+attr source packetDropReasonIsNoPortFound(packetDropped)
+attr title "packets dropped (wrong port), count"
+vector 161 EthNet.client2.udp droppedPkBadChecksum:vector(count) ETV
+attr interpolationmode none
+attr recordingmode vector(count)
+attr source packetDropReasonIsIncorrectlyReceived(packetDropped)
+attr title "packets dropped (checksum error), count"
+vector 162 EthNet.client2.app[0] packetReceived:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceived
+attr title "packets received, packetBytes"
+vector 163 EthNet.client2.app[0] packetSent:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSent
+attr title "packets sent, packetBytes"
+vector 164 EthNet.client2.app[0] endToEndDelay:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source dataAge(packetReceived)
+attr title "end-to-end delay"
+attr unit s
+vector 165 EthNet.client1.ethernet encapPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source encapPk
+attr title "packets encapsulated, packetBytes"
+vector 166 EthNet.client1.ethernet decapPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source decapPk
+attr title "packets decapsulated, packetBytes"
+vector 167 EthNet.client1.ethernet pauseSent:vector ETV
+attr recordingmode vector
+attr title "pause sent"
+vector 168 EthNet.client1.lo[0].lo rcvdPkFromHl:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceivedFromUpper
+attr title "packets received from higher layer, packetBytes"
+vector 169 EthNet.client1.lo[0].lo passedUpPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToUpper
+attr title "packets passed to higher layer, packetBytes"
+vector 170 EthNet.client1.lo[0] packetDropInterfaceDown:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsInterfaceDown(packetDropped)
+attr title "packet drops: interface down, packetBytes"
+vector 171 EthNet.client1.lo[0] packetDropNoCarrier:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsNoCarrier(packetDropped)
+attr title "packet drops: no carrier, packetBytes"
+vector 172 EthNet.client1.eth[0].queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+vector 173 EthNet.client1.eth[0].queue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+vector 174 EthNet.client1.eth[0].queue queueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(packetPulled)
+attr title "queueing times"
+attr unit s
+vector 175 EthNet.client1.eth[0].queue incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPushStarted)
+attr title "incoming packet lengths"
+attr unit b
+vector 176 EthNet.client1.eth[0].queue incomingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPushStarted)
+attr title "incoming datarate"
+attr unit bps
+vector 177 EthNet.client1.eth[0].queue outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPulled)
+attr title "outgoing packet lengths"
+attr unit b
+vector 178 EthNet.client1.eth[0].queue outgoingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPulled)
+attr title "outgoing datarate"
+attr unit bps
+vector 179 EthNet.client1.eth[0].queue droppedPacketLengthsQueueOverflow:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetDropReasonIsQueueOverflow(packetDropped))
+attr title "dropped packet lengths: queue overflow"
+attr unit b
+vector 180 EthNet.client1.eth[0].queue flowQueueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(demuxFlow(packetPulled))
+attr title "flow queueing times"
+attr unit s
+vector 181 EthNet.client1.eth[0].queue flowIncomingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(flowPacketLength(demuxFlow(packetPushStarted)))
+attr title "flow specific incoming data rate"
+attr unit bps
+vector 182 EthNet.client1.eth[0].queue flowOutgoingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(flowPacketLength(demuxFlow(packetPulled)))
+attr title "flow specific outgoing data rate"
+attr unit bps
+vector 183 EthNet.client1.eth[0].mac txPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToLower
+attr title "packets transmitted, packetBytes"
+vector 184 EthNet.client1.eth[0].mac rxPkOk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source rxPkOk
+attr title "packets received OK, packetBytes"
+vector 185 EthNet.client1.eth[0].mac passedUpPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToUpper
+attr title "packets passed to higher layer, packetBytes"
+vector 186 EthNet.client1.eth[0].mac txPausePkUnits:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr title "pause units sent"
+vector 187 EthNet.client1.eth[0].mac rxPausePkUnits:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr title "pause units received"
+vector 188 EthNet.client1.eth[0].mac packetReceivedFromUpper:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceivedFromUpper
+attr title "packet bytes from higher layer, packetBytes"
+vector 189 EthNet.client1.eth[0].mac packetDropIncorrectlyReceived:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsIncorrectlyReceived(packetDropped)
+attr title "packet drop: incorrectly received, packetBytes"
+vector 190 EthNet.client1.eth[0].mac packetDropInterfaceDown:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsInterfaceDown(packetDropped)
+attr title "packet drop: interface down, packetBytes"
+vector 191 EthNet.client1.eth[0].mac packetDropNotAddressedToUs:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsNotAddressedToUs(packetDropped)
+attr title "packet drop: not addressed to us, packetBytes"
+vector 192 EthNet.client1.eth[0] packetDropInterfaceDown:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsInterfaceDown(packetDropped)
+attr title "packet drops: interface down, packetBytes"
+vector 193 EthNet.client1.eth[0] packetDropNoCarrier:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsNoCarrier(packetDropped)
+attr title "packet drops: no carrier, packetBytes"
+vector 194 EthNet.client1.ipv4.ip packetDropAddressResolutionFailed:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsAddressResolutionFailed(packetDropped)
+attr title "packet drop: address resolution failed, packetBytes"
+vector 195 EthNet.client1.ipv4.ip packetDropHopLimitReached:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsHopLimitReached(packetDropped)
+attr title "packet drop: hop limit reached, packetBytes"
+vector 196 EthNet.client1.ipv4.ip packetDropForwardingDisabled:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsForwardingDisabled(packetDropped)
+attr title "packet drop: forwarding disabled, packetBytes"
+vector 197 EthNet.client1.ipv4.ip packetDropNoInterfaceFound:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsNoInterfaceFound(packetDropped)
+attr title "packet drop: no interface found, packetBytes"
+vector 198 EthNet.client1.ipv4.ip packetDropNoRouteFound:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsNoRouteFound(packetDropped)
+attr title "packet drop: no route found, packetBytes"
+vector 199 EthNet.client1.ipv4.ip packetDropUndefined:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsUndefined(packetDropped)
+attr title "packet drop: undefined, packetBytes"
+vector 200 EthNet.client1.ipv4.arp arpRequestSent:vector(packetBytes) ETV
+attr recordingmode vector(packetBytes)
+attr source arpRequestSent
+attr title "ARP request sent, packetBytes"
+vector 201 EthNet.client1.ipv4.arp arpReplySent:vector(packetBytes) ETV
+attr recordingmode vector(packetBytes)
+attr source arpReplySent
+attr title "ARP replies sent, packetBytes"
+vector 202 EthNet.client1.udp packetSent:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSent
+attr title "packets sent, packetBytes"
+vector 203 EthNet.client1.udp packetReceived:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceived
+attr title "packets received, packetBytes"
+vector 204 EthNet.client1.udp passedUpPk:vector(count) ETV
+attr interpolationmode none
+attr recordingmode vector(count)
+attr source packetSentToUpper
+attr title "packets passed up, count"
+vector 205 EthNet.client1.udp droppedPkWrongPort:vector(count) ETV
+attr interpolationmode none
+attr recordingmode vector(count)
+attr source packetDropReasonIsNoPortFound(packetDropped)
+attr title "packets dropped (wrong port), count"
+vector 206 EthNet.client1.udp droppedPkBadChecksum:vector(count) ETV
+attr interpolationmode none
+attr recordingmode vector(count)
+attr source packetDropReasonIsIncorrectlyReceived(packetDropped)
+attr title "packets dropped (checksum error), count"
+vector 207 EthNet.client1.app[0] packetReceived:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceived
+attr title "packets received, packetBytes"
+vector 208 EthNet.client1.app[0] packetSent:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSent
+attr title "packets sent, packetBytes"
+vector 209 EthNet.client1.app[0] endToEndDelay:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source dataAge(packetReceived)
+attr title "end-to-end delay"
+attr unit s
+vector 210 EthNet.client3.ethernet encapPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source encapPk
+attr title "packets encapsulated, packetBytes"
+vector 211 EthNet.client3.ethernet decapPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source decapPk
+attr title "packets decapsulated, packetBytes"
+vector 212 EthNet.client3.ethernet pauseSent:vector ETV
+attr recordingmode vector
+attr title "pause sent"
+vector 213 EthNet.client3.lo[0].lo rcvdPkFromHl:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceivedFromUpper
+attr title "packets received from higher layer, packetBytes"
+vector 214 EthNet.client3.lo[0].lo passedUpPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToUpper
+attr title "packets passed to higher layer, packetBytes"
+vector 215 EthNet.client3.lo[0] packetDropInterfaceDown:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsInterfaceDown(packetDropped)
+attr title "packet drops: interface down, packetBytes"
+vector 216 EthNet.client3.lo[0] packetDropNoCarrier:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsNoCarrier(packetDropped)
+attr title "packet drops: no carrier, packetBytes"
+vector 217 EthNet.client3.eth[0].queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+vector 218 EthNet.client3.eth[0].queue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+vector 219 EthNet.client3.eth[0].queue queueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(packetPulled)
+attr title "queueing times"
+attr unit s
+vector 220 EthNet.client3.eth[0].queue incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPushStarted)
+attr title "incoming packet lengths"
+attr unit b
+vector 221 EthNet.client3.eth[0].queue incomingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPushStarted)
+attr title "incoming datarate"
+attr unit bps
+vector 222 EthNet.client3.eth[0].queue outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPulled)
+attr title "outgoing packet lengths"
+attr unit b
+vector 223 EthNet.client3.eth[0].queue outgoingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPulled)
+attr title "outgoing datarate"
+attr unit bps
+vector 224 EthNet.client3.eth[0].queue droppedPacketLengthsQueueOverflow:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetDropReasonIsQueueOverflow(packetDropped))
+attr title "dropped packet lengths: queue overflow"
+attr unit b
+vector 225 EthNet.client3.eth[0].queue flowQueueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(demuxFlow(packetPulled))
+attr title "flow queueing times"
+attr unit s
+vector 226 EthNet.client3.eth[0].queue flowIncomingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(flowPacketLength(demuxFlow(packetPushStarted)))
+attr title "flow specific incoming data rate"
+attr unit bps
+vector 227 EthNet.client3.eth[0].queue flowOutgoingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(flowPacketLength(demuxFlow(packetPulled)))
+attr title "flow specific outgoing data rate"
+attr unit bps
+vector 228 EthNet.client3.eth[0].mac txPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToLower
+attr title "packets transmitted, packetBytes"
+vector 229 EthNet.client3.eth[0].mac rxPkOk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source rxPkOk
+attr title "packets received OK, packetBytes"
+vector 230 EthNet.client3.eth[0].mac passedUpPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToUpper
+attr title "packets passed to higher layer, packetBytes"
+vector 231 EthNet.client3.eth[0].mac txPausePkUnits:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr title "pause units sent"
+vector 232 EthNet.client3.eth[0].mac rxPausePkUnits:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr title "pause units received"
+vector 233 EthNet.client3.eth[0].mac packetReceivedFromUpper:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceivedFromUpper
+attr title "packet bytes from higher layer, packetBytes"
+vector 234 EthNet.client3.eth[0].mac packetDropIncorrectlyReceived:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsIncorrectlyReceived(packetDropped)
+attr title "packet drop: incorrectly received, packetBytes"
+vector 235 EthNet.client3.eth[0].mac packetDropInterfaceDown:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsInterfaceDown(packetDropped)
+attr title "packet drop: interface down, packetBytes"
+vector 236 EthNet.client3.eth[0].mac packetDropNotAddressedToUs:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsNotAddressedToUs(packetDropped)
+attr title "packet drop: not addressed to us, packetBytes"
+vector 237 EthNet.client3.eth[0] packetDropInterfaceDown:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsInterfaceDown(packetDropped)
+attr title "packet drops: interface down, packetBytes"
+vector 238 EthNet.client3.eth[0] packetDropNoCarrier:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsNoCarrier(packetDropped)
+attr title "packet drops: no carrier, packetBytes"
+vector 239 EthNet.client3.ipv4.ip packetDropAddressResolutionFailed:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsAddressResolutionFailed(packetDropped)
+attr title "packet drop: address resolution failed, packetBytes"
+vector 240 EthNet.client3.ipv4.ip packetDropHopLimitReached:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsHopLimitReached(packetDropped)
+attr title "packet drop: hop limit reached, packetBytes"
+vector 241 EthNet.client3.ipv4.ip packetDropForwardingDisabled:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsForwardingDisabled(packetDropped)
+attr title "packet drop: forwarding disabled, packetBytes"
+vector 242 EthNet.client3.ipv4.ip packetDropNoInterfaceFound:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsNoInterfaceFound(packetDropped)
+attr title "packet drop: no interface found, packetBytes"
+vector 243 EthNet.client3.ipv4.ip packetDropNoRouteFound:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsNoRouteFound(packetDropped)
+attr title "packet drop: no route found, packetBytes"
+vector 244 EthNet.client3.ipv4.ip packetDropUndefined:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsUndefined(packetDropped)
+attr title "packet drop: undefined, packetBytes"
+vector 245 EthNet.client3.ipv4.arp arpRequestSent:vector(packetBytes) ETV
+attr recordingmode vector(packetBytes)
+attr source arpRequestSent
+attr title "ARP request sent, packetBytes"
+vector 246 EthNet.client3.ipv4.arp arpReplySent:vector(packetBytes) ETV
+attr recordingmode vector(packetBytes)
+attr source arpReplySent
+attr title "ARP replies sent, packetBytes"
+vector 247 EthNet.client3.udp packetSent:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSent
+attr title "packets sent, packetBytes"
+vector 248 EthNet.client3.udp packetReceived:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceived
+attr title "packets received, packetBytes"
+vector 249 EthNet.client3.udp passedUpPk:vector(count) ETV
+attr interpolationmode none
+attr recordingmode vector(count)
+attr source packetSentToUpper
+attr title "packets passed up, count"
+vector 250 EthNet.client3.udp droppedPkWrongPort:vector(count) ETV
+attr interpolationmode none
+attr recordingmode vector(count)
+attr source packetDropReasonIsNoPortFound(packetDropped)
+attr title "packets dropped (wrong port), count"
+vector 251 EthNet.client3.udp droppedPkBadChecksum:vector(count) ETV
+attr interpolationmode none
+attr recordingmode vector(count)
+attr source packetDropReasonIsIncorrectlyReceived(packetDropped)
+attr title "packets dropped (checksum error), count"
+vector 252 EthNet.client3.app[0] packetReceived:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceived
+attr title "packets received, packetBytes"
+vector 253 EthNet.client3.app[0] packetSent:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSent
+attr title "packets sent, packetBytes"
+vector 254 EthNet.client3.app[0] endToEndDelay:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source dataAge(packetReceived)
+attr title "end-to-end delay"
+attr unit s
+vector 255 EthNet.client4.ethernet encapPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source encapPk
+attr title "packets encapsulated, packetBytes"
+vector 256 EthNet.client4.ethernet decapPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source decapPk
+attr title "packets decapsulated, packetBytes"
+vector 257 EthNet.client4.ethernet pauseSent:vector ETV
+attr recordingmode vector
+attr title "pause sent"
+vector 258 EthNet.client4.lo[0].lo rcvdPkFromHl:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceivedFromUpper
+attr title "packets received from higher layer, packetBytes"
+vector 259 EthNet.client4.lo[0].lo passedUpPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToUpper
+attr title "packets passed to higher layer, packetBytes"
+vector 260 EthNet.client4.lo[0] packetDropInterfaceDown:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsInterfaceDown(packetDropped)
+attr title "packet drops: interface down, packetBytes"
+vector 261 EthNet.client4.lo[0] packetDropNoCarrier:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsNoCarrier(packetDropped)
+attr title "packet drops: no carrier, packetBytes"
+vector 262 EthNet.client4.eth[0].queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+vector 263 EthNet.client4.eth[0].queue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+vector 264 EthNet.client4.eth[0].queue queueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(packetPulled)
+attr title "queueing times"
+attr unit s
+vector 265 EthNet.client4.eth[0].queue incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPushStarted)
+attr title "incoming packet lengths"
+attr unit b
+vector 266 EthNet.client4.eth[0].queue incomingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPushStarted)
+attr title "incoming datarate"
+attr unit bps
+vector 267 EthNet.client4.eth[0].queue outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPulled)
+attr title "outgoing packet lengths"
+attr unit b
+vector 268 EthNet.client4.eth[0].queue outgoingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPulled)
+attr title "outgoing datarate"
+attr unit bps
+vector 269 EthNet.client4.eth[0].queue droppedPacketLengthsQueueOverflow:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetDropReasonIsQueueOverflow(packetDropped))
+attr title "dropped packet lengths: queue overflow"
+attr unit b
+vector 270 EthNet.client4.eth[0].queue flowQueueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(demuxFlow(packetPulled))
+attr title "flow queueing times"
+attr unit s
+vector 271 EthNet.client4.eth[0].queue flowIncomingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(flowPacketLength(demuxFlow(packetPushStarted)))
+attr title "flow specific incoming data rate"
+attr unit bps
+vector 272 EthNet.client4.eth[0].queue flowOutgoingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(flowPacketLength(demuxFlow(packetPulled)))
+attr title "flow specific outgoing data rate"
+attr unit bps
+vector 273 EthNet.client4.eth[0].mac txPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToLower
+attr title "packets transmitted, packetBytes"
+vector 274 EthNet.client4.eth[0].mac rxPkOk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source rxPkOk
+attr title "packets received OK, packetBytes"
+vector 275 EthNet.client4.eth[0].mac passedUpPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToUpper
+attr title "packets passed to higher layer, packetBytes"
+vector 276 EthNet.client4.eth[0].mac txPausePkUnits:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr title "pause units sent"
+vector 277 EthNet.client4.eth[0].mac rxPausePkUnits:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr title "pause units received"
+vector 278 EthNet.client4.eth[0].mac packetReceivedFromUpper:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceivedFromUpper
+attr title "packet bytes from higher layer, packetBytes"
+vector 279 EthNet.client4.eth[0].mac packetDropIncorrectlyReceived:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsIncorrectlyReceived(packetDropped)
+attr title "packet drop: incorrectly received, packetBytes"
+vector 280 EthNet.client4.eth[0].mac packetDropInterfaceDown:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsInterfaceDown(packetDropped)
+attr title "packet drop: interface down, packetBytes"
+vector 281 EthNet.client4.eth[0].mac packetDropNotAddressedToUs:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsNotAddressedToUs(packetDropped)
+attr title "packet drop: not addressed to us, packetBytes"
+vector 282 EthNet.client4.eth[0] packetDropInterfaceDown:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsInterfaceDown(packetDropped)
+attr title "packet drops: interface down, packetBytes"
+vector 283 EthNet.client4.eth[0] packetDropNoCarrier:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsNoCarrier(packetDropped)
+attr title "packet drops: no carrier, packetBytes"
+vector 284 EthNet.client4.ipv4.ip packetDropAddressResolutionFailed:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsAddressResolutionFailed(packetDropped)
+attr title "packet drop: address resolution failed, packetBytes"
+vector 285 EthNet.client4.ipv4.ip packetDropHopLimitReached:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsHopLimitReached(packetDropped)
+attr title "packet drop: hop limit reached, packetBytes"
+vector 286 EthNet.client4.ipv4.ip packetDropForwardingDisabled:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsForwardingDisabled(packetDropped)
+attr title "packet drop: forwarding disabled, packetBytes"
+vector 287 EthNet.client4.ipv4.ip packetDropNoInterfaceFound:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsNoInterfaceFound(packetDropped)
+attr title "packet drop: no interface found, packetBytes"
+vector 288 EthNet.client4.ipv4.ip packetDropNoRouteFound:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsNoRouteFound(packetDropped)
+attr title "packet drop: no route found, packetBytes"
+vector 289 EthNet.client4.ipv4.ip packetDropUndefined:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsUndefined(packetDropped)
+attr title "packet drop: undefined, packetBytes"
+vector 290 EthNet.client4.ipv4.arp arpRequestSent:vector(packetBytes) ETV
+attr recordingmode vector(packetBytes)
+attr source arpRequestSent
+attr title "ARP request sent, packetBytes"
+vector 291 EthNet.client4.ipv4.arp arpReplySent:vector(packetBytes) ETV
+attr recordingmode vector(packetBytes)
+attr source arpReplySent
+attr title "ARP replies sent, packetBytes"
+vector 292 EthNet.client4.udp packetSent:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSent
+attr title "packets sent, packetBytes"
+vector 293 EthNet.client4.udp packetReceived:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceived
+attr title "packets received, packetBytes"
+vector 294 EthNet.client4.udp passedUpPk:vector(count) ETV
+attr interpolationmode none
+attr recordingmode vector(count)
+attr source packetSentToUpper
+attr title "packets passed up, count"
+vector 295 EthNet.client4.udp droppedPkWrongPort:vector(count) ETV
+attr interpolationmode none
+attr recordingmode vector(count)
+attr source packetDropReasonIsNoPortFound(packetDropped)
+attr title "packets dropped (wrong port), count"
+vector 296 EthNet.client4.udp droppedPkBadChecksum:vector(count) ETV
+attr interpolationmode none
+attr recordingmode vector(count)
+attr source packetDropReasonIsIncorrectlyReceived(packetDropped)
+attr title "packets dropped (checksum error), count"
+vector 297 EthNet.client4.app[0] packetReceived:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceived
+attr title "packets received, packetBytes"
+vector 298 EthNet.client4.app[0] packetSent:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSent
+attr title "packets sent, packetBytes"
+vector 299 EthNet.client4.app[0] endToEndDelay:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source dataAge(packetReceived)
+attr title "end-to-end delay"
+attr unit s
+vector 300 EthNet.server.tcp.conn-0 state:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 301 EthNet.server.tcp.conn-0 sndWnd:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 302 EthNet.server.tcp.conn-0 rcvWnd:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 303 EthNet.server.tcp.conn-0 rcvAdv:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 304 EthNet.server.tcp.conn-0 sndNxt:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 305 EthNet.server.tcp.conn-0 sndAck:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 306 EthNet.server.tcp.conn-0 rcvSeq:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 307 EthNet.server.tcp.conn-0 rcvAck:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 308 EthNet.server.tcp.conn-0 unacked:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 309 EthNet.server.tcp.conn-0 dupAcks:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 310 EthNet.server.tcp.conn-0 pipe:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 311 EthNet.server.tcp.conn-0 sndSacks:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 312 EthNet.server.tcp.conn-0 rcvSacks:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 313 EthNet.server.tcp.conn-0 rcvOooSeg:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 314 EthNet.server.tcp.conn-0 rcvNASeg:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 315 EthNet.server.tcp.conn-0 sackedBytes:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 316 EthNet.server.tcp.conn-0 tcpRcvQueueBytes:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 317 EthNet.server.tcp.conn-0 tcpRcvQueueDrops:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 318 EthNet.server.tcp.conn-0 tcpRcvPayloadBytes:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 319 EthNet.server.tcp.conn-0 cwnd:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 320 EthNet.server.tcp.conn-0 ssthresh:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 321 EthNet.server.tcp.conn-0 rtt:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 322 EthNet.server.tcp.conn-0 srtt:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 323 EthNet.server.tcp.conn-0 rttvar:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 324 EthNet.server.tcp.conn-0 rto:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 325 EthNet.server.tcp.conn-0 numRtos:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 326 EthNet.server.tcp.conn-0 load:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 327 EthNet.server.tcp.conn-0 calcLoad:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 328 EthNet.server.tcp.conn-0 markingProb:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 329 EthNet.server.tcp.conn-1 state:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 330 EthNet.server.tcp.conn-1 sndWnd:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 331 EthNet.server.tcp.conn-1 rcvWnd:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 332 EthNet.server.tcp.conn-1 rcvAdv:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 333 EthNet.server.tcp.conn-1 sndNxt:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 334 EthNet.server.tcp.conn-1 sndAck:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 335 EthNet.server.tcp.conn-1 rcvSeq:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 336 EthNet.server.tcp.conn-1 rcvAck:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 337 EthNet.server.tcp.conn-1 unacked:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 338 EthNet.server.tcp.conn-1 dupAcks:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 339 EthNet.server.tcp.conn-1 pipe:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 340 EthNet.server.tcp.conn-1 sndSacks:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 341 EthNet.server.tcp.conn-1 rcvSacks:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 342 EthNet.server.tcp.conn-1 rcvOooSeg:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 343 EthNet.server.tcp.conn-1 rcvNASeg:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 344 EthNet.server.tcp.conn-1 sackedBytes:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 345 EthNet.server.tcp.conn-1 tcpRcvQueueBytes:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 346 EthNet.server.tcp.conn-1 tcpRcvQueueDrops:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 347 EthNet.server.tcp.conn-1 tcpRcvPayloadBytes:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 348 EthNet.server.tcp.conn-1 cwnd:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 349 EthNet.server.tcp.conn-1 ssthresh:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 350 EthNet.server.tcp.conn-1 rtt:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 351 EthNet.server.tcp.conn-1 srtt:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 352 EthNet.server.tcp.conn-1 rttvar:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 353 EthNet.server.tcp.conn-1 rto:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 354 EthNet.server.tcp.conn-1 numRtos:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 355 EthNet.server.tcp.conn-1 load:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 356 EthNet.server.tcp.conn-1 calcLoad:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 357 EthNet.server.tcp.conn-1 markingProb:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 358 EthNet.server.tcp.conn-2 state:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 359 EthNet.server.tcp.conn-2 sndWnd:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 360 EthNet.server.tcp.conn-2 rcvWnd:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 361 EthNet.server.tcp.conn-2 rcvAdv:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 362 EthNet.server.tcp.conn-2 sndNxt:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 363 EthNet.server.tcp.conn-2 sndAck:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 364 EthNet.server.tcp.conn-2 rcvSeq:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 365 EthNet.server.tcp.conn-2 rcvAck:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 366 EthNet.server.tcp.conn-2 unacked:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 367 EthNet.server.tcp.conn-2 dupAcks:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 368 EthNet.server.tcp.conn-2 pipe:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 369 EthNet.server.tcp.conn-2 sndSacks:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 370 EthNet.server.tcp.conn-2 rcvSacks:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 371 EthNet.server.tcp.conn-2 rcvOooSeg:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 372 EthNet.server.tcp.conn-2 rcvNASeg:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 373 EthNet.server.tcp.conn-2 sackedBytes:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 374 EthNet.server.tcp.conn-2 tcpRcvQueueBytes:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 375 EthNet.server.tcp.conn-2 tcpRcvQueueDrops:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 376 EthNet.server.tcp.conn-2 tcpRcvPayloadBytes:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 377 EthNet.server.tcp.conn-2 cwnd:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 378 EthNet.server.tcp.conn-2 ssthresh:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 379 EthNet.server.tcp.conn-2 rtt:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 380 EthNet.server.tcp.conn-2 srtt:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 381 EthNet.server.tcp.conn-2 rttvar:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 382 EthNet.server.tcp.conn-2 rto:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 383 EthNet.server.tcp.conn-2 numRtos:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 384 EthNet.server.tcp.conn-2 load:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 385 EthNet.server.tcp.conn-2 calcLoad:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 386 EthNet.server.tcp.conn-2 markingProb:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 387 EthNet.server.tcp.conn-3 state:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 388 EthNet.server.tcp.conn-3 sndWnd:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 389 EthNet.server.tcp.conn-3 rcvWnd:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 390 EthNet.server.tcp.conn-3 rcvAdv:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 391 EthNet.server.tcp.conn-3 sndNxt:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 392 EthNet.server.tcp.conn-3 sndAck:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 393 EthNet.server.tcp.conn-3 rcvSeq:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 394 EthNet.server.tcp.conn-3 rcvAck:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 395 EthNet.server.tcp.conn-3 unacked:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 396 EthNet.server.tcp.conn-3 dupAcks:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 397 EthNet.server.tcp.conn-3 pipe:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 398 EthNet.server.tcp.conn-3 sndSacks:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 399 EthNet.server.tcp.conn-3 rcvSacks:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 400 EthNet.server.tcp.conn-3 rcvOooSeg:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 401 EthNet.server.tcp.conn-3 rcvNASeg:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 402 EthNet.server.tcp.conn-3 sackedBytes:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 403 EthNet.server.tcp.conn-3 tcpRcvQueueBytes:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 404 EthNet.server.tcp.conn-3 tcpRcvQueueDrops:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 405 EthNet.server.tcp.conn-3 tcpRcvPayloadBytes:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 406 EthNet.server.tcp.conn-3 cwnd:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 407 EthNet.server.tcp.conn-3 ssthresh:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 408 EthNet.server.tcp.conn-3 rtt:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 409 EthNet.server.tcp.conn-3 srtt:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 410 EthNet.server.tcp.conn-3 rttvar:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 411 EthNet.server.tcp.conn-3 rto:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 412 EthNet.server.tcp.conn-3 numRtos:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 413 EthNet.server.tcp.conn-3 load:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 414 EthNet.server.tcp.conn-3 calcLoad:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 415 EthNet.server.tcp.conn-3 markingProb:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 416 EthNet.client2.tcp.conn-8 state:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 417 EthNet.client2.tcp.conn-8 sndWnd:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 418 EthNet.client2.tcp.conn-8 rcvWnd:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 419 EthNet.client2.tcp.conn-8 rcvAdv:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 420 EthNet.client2.tcp.conn-8 sndNxt:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 421 EthNet.client2.tcp.conn-8 sndAck:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 422 EthNet.client2.tcp.conn-8 rcvSeq:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 423 EthNet.client2.tcp.conn-8 rcvAck:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 424 EthNet.client2.tcp.conn-8 unacked:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 425 EthNet.client2.tcp.conn-8 dupAcks:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 426 EthNet.client2.tcp.conn-8 pipe:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 427 EthNet.client2.tcp.conn-8 sndSacks:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 428 EthNet.client2.tcp.conn-8 rcvSacks:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 429 EthNet.client2.tcp.conn-8 rcvOooSeg:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 430 EthNet.client2.tcp.conn-8 rcvNASeg:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 431 EthNet.client2.tcp.conn-8 sackedBytes:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 432 EthNet.client2.tcp.conn-8 tcpRcvQueueBytes:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 433 EthNet.client2.tcp.conn-8 tcpRcvQueueDrops:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 434 EthNet.client2.tcp.conn-8 tcpRcvPayloadBytes:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 435 EthNet.client2.tcp.conn-8 cwnd:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 436 EthNet.client2.tcp.conn-8 ssthresh:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 437 EthNet.client2.tcp.conn-8 rtt:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 438 EthNet.client2.tcp.conn-8 srtt:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 439 EthNet.client2.tcp.conn-8 rttvar:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 440 EthNet.client2.tcp.conn-8 rto:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 441 EthNet.client2.tcp.conn-8 numRtos:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 442 EthNet.client2.tcp.conn-8 load:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 443 EthNet.client2.tcp.conn-8 calcLoad:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 444 EthNet.client2.tcp.conn-8 markingProb:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 445 EthNet.client1.tcp.conn-9 state:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 446 EthNet.client1.tcp.conn-9 sndWnd:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 447 EthNet.client1.tcp.conn-9 rcvWnd:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 448 EthNet.client1.tcp.conn-9 rcvAdv:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 449 EthNet.client1.tcp.conn-9 sndNxt:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 450 EthNet.client1.tcp.conn-9 sndAck:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 451 EthNet.client1.tcp.conn-9 rcvSeq:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 452 EthNet.client1.tcp.conn-9 rcvAck:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 453 EthNet.client1.tcp.conn-9 unacked:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 454 EthNet.client1.tcp.conn-9 dupAcks:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 455 EthNet.client1.tcp.conn-9 pipe:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 456 EthNet.client1.tcp.conn-9 sndSacks:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 457 EthNet.client1.tcp.conn-9 rcvSacks:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 458 EthNet.client1.tcp.conn-9 rcvOooSeg:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 459 EthNet.client1.tcp.conn-9 rcvNASeg:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 460 EthNet.client1.tcp.conn-9 sackedBytes:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 461 EthNet.client1.tcp.conn-9 tcpRcvQueueBytes:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 462 EthNet.client1.tcp.conn-9 tcpRcvQueueDrops:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 463 EthNet.client1.tcp.conn-9 tcpRcvPayloadBytes:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 464 EthNet.client1.tcp.conn-9 cwnd:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 465 EthNet.client1.tcp.conn-9 ssthresh:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 466 EthNet.client1.tcp.conn-9 rtt:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 467 EthNet.client1.tcp.conn-9 srtt:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 468 EthNet.client1.tcp.conn-9 rttvar:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 469 EthNet.client1.tcp.conn-9 rto:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 470 EthNet.client1.tcp.conn-9 numRtos:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 471 EthNet.client1.tcp.conn-9 load:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 472 EthNet.client1.tcp.conn-9 calcLoad:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 473 EthNet.client1.tcp.conn-9 markingProb:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 474 EthNet.client3.tcp.conn-10 state:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 475 EthNet.client3.tcp.conn-10 sndWnd:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 476 EthNet.client3.tcp.conn-10 rcvWnd:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 477 EthNet.client3.tcp.conn-10 rcvAdv:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 478 EthNet.client3.tcp.conn-10 sndNxt:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 479 EthNet.client3.tcp.conn-10 sndAck:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 480 EthNet.client3.tcp.conn-10 rcvSeq:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 481 EthNet.client3.tcp.conn-10 rcvAck:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 482 EthNet.client3.tcp.conn-10 unacked:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 483 EthNet.client3.tcp.conn-10 dupAcks:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 484 EthNet.client3.tcp.conn-10 pipe:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 485 EthNet.client3.tcp.conn-10 sndSacks:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 486 EthNet.client3.tcp.conn-10 rcvSacks:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 487 EthNet.client3.tcp.conn-10 rcvOooSeg:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 488 EthNet.client3.tcp.conn-10 rcvNASeg:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 489 EthNet.client3.tcp.conn-10 sackedBytes:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 490 EthNet.client3.tcp.conn-10 tcpRcvQueueBytes:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 491 EthNet.client3.tcp.conn-10 tcpRcvQueueDrops:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 492 EthNet.client3.tcp.conn-10 tcpRcvPayloadBytes:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 493 EthNet.client3.tcp.conn-10 cwnd:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 494 EthNet.client3.tcp.conn-10 ssthresh:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 495 EthNet.client3.tcp.conn-10 rtt:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 496 EthNet.client3.tcp.conn-10 srtt:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 497 EthNet.client3.tcp.conn-10 rttvar:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 498 EthNet.client3.tcp.conn-10 rto:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 499 EthNet.client3.tcp.conn-10 numRtos:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 500 EthNet.client3.tcp.conn-10 load:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 501 EthNet.client3.tcp.conn-10 calcLoad:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 502 EthNet.client3.tcp.conn-10 markingProb:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 503 EthNet.client4.tcp.conn-11 state:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 504 EthNet.client4.tcp.conn-11 sndWnd:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 505 EthNet.client4.tcp.conn-11 rcvWnd:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 506 EthNet.client4.tcp.conn-11 rcvAdv:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 507 EthNet.client4.tcp.conn-11 sndNxt:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 508 EthNet.client4.tcp.conn-11 sndAck:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 509 EthNet.client4.tcp.conn-11 rcvSeq:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 510 EthNet.client4.tcp.conn-11 rcvAck:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 511 EthNet.client4.tcp.conn-11 unacked:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 512 EthNet.client4.tcp.conn-11 dupAcks:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 513 EthNet.client4.tcp.conn-11 pipe:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 514 EthNet.client4.tcp.conn-11 sndSacks:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 515 EthNet.client4.tcp.conn-11 rcvSacks:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 516 EthNet.client4.tcp.conn-11 rcvOooSeg:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 517 EthNet.client4.tcp.conn-11 rcvNASeg:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 518 EthNet.client4.tcp.conn-11 sackedBytes:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 519 EthNet.client4.tcp.conn-11 tcpRcvQueueBytes:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 520 EthNet.client4.tcp.conn-11 tcpRcvQueueDrops:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 521 EthNet.client4.tcp.conn-11 tcpRcvPayloadBytes:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 522 EthNet.client4.tcp.conn-11 cwnd:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 523 EthNet.client4.tcp.conn-11 ssthresh:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 524 EthNet.client4.tcp.conn-11 rtt:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 525 EthNet.client4.tcp.conn-11 srtt:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 526 EthNet.client4.tcp.conn-11 rttvar:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 527 EthNet.client4.tcp.conn-11 rto:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 528 EthNet.client4.tcp.conn-11 numRtos:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 529 EthNet.client4.tcp.conn-11 load:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 530 EthNet.client4.tcp.conn-11 calcLoad:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 531 EthNet.client4.tcp.conn-11 markingProb:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+0	100790 80 41 44 1.00000581 1.00000581 4 28 28 112 3136
+1	100870 80 33 36 1.00000581 1.00000581 4 46 46 184 8464
+7	100950 64 0 45 0 1.00000581 6 0 0 0 0
+8	101014 64 0 45 0 1.00000581 6 0 0 0 0
+9	101078 19 45 45 1.00000581 1.00000581 1 0 0 0 0
+10	101097 22 45 45 1.00000581 1.00000581 1 368 368 368 135424
+11	101119 128 45 45 0.1 1 10 0 0 0 0
+12	101247 22 45 45 1.00000581 1.00000581 1 368 368 368 135424
+13	101269 128 45 45 0.1 1 10 0 0 0 0
+18	101397 21 53 53 1.00001157 1.00001157 1 64 64 64 4096
+19	101418 21 29 29 1.00000581 1.00000581 1 64 64 64 4096
+20	101439 21 29 29 1.00000581 1.00000581 1 64 64 64 4096
+23	101460 21 45 45 1.00000581 1.00000581 1 46 46 46 2116
+29	101481 70 0 46 0 1.00000581 6 0 0 0 0
+30	101551 70 0 46 0 1.00000581 6 0 0 0 0
+31	101621 20 46 46 1.00000581 1.00000581 1 0 0 0 0
+32	101641 22 46 46 1.00000581 1.00000581 1 368 368 368 135424
+33	101663 128 46 46 0.1 1 10 0 0 0 0
+34	101791 22 46 46 1.00000581 1.00000581 1 368 368 368 135424
+35	101813 128 46 46 0.1 1 10 0 0 0 0
+40	101941 21 54 54 1.00001157 1.00001157 1 64 64 64 4096
+41	101962 21 30 30 1.00000581 1.00000581 1 64 64 64 4096
+42	101983 21 30 30 1.00000581 1.00000581 1 64 64 64 4096
+45	102004 21 46 46 1.00000581 1.00000581 1 46 46 46 2116
+51	102025 70 0 47 0 1.00000581 6 0 0 0 0
+52	102095 70 0 47 0 1.00000581 6 0 0 0 0
+53	102165 20 47 47 1.00000581 1.00000581 1 0 0 0 0
+54	102185 22 47 47 1.00000581 1.00000581 1 368 368 368 135424
+55	102207 128 47 47 0.1 1 10 0 0 0 0
+56	102335 22 47 47 1.00000581 1.00000581 1 368 368 368 135424
+57	102357 128 47 47 0.1 1 10 0 0 0 0
+62	102485 21 55 55 1.00001157 1.00001157 1 64 64 64 4096
+63	102506 21 31 31 1.00000581 1.00000581 1 64 64 64 4096
+64	102527 21 31 31 1.00000581 1.00000581 1 64 64 64 4096
+67	102548 21 47 47 1.00000581 1.00000581 1 46 46 46 2116
+73	102569 70 0 48 0 1.00000581 6 0 0 0 0
+74	102639 70 0 48 0 1.00000581 6 0 0 0 0
+75	102709 20 48 48 1.00000581 1.00000581 1 0 0 0 0
+76	102729 22 48 48 1.00000581 1.00000581 1 368 368 368 135424
+77	102751 128 48 48 0.1 1 10 0 0 0 0
+78	102879 22 48 48 1.00000581 1.00000581 1 368 368 368 135424
+79	102901 128 48 48 0.1 1 10 0 0 0 0
+84	103029 21 56 56 1.00001157 1.00001157 1 64 64 64 4096
+85	103050 21 32 32 1.00000581 1.00000581 1 64 64 64 4096
+86	103071 21 32 32 1.00000581 1.00000581 1 64 64 64 4096
+89	103092 21 48 48 1.00000581 1.00000581 1 46 46 46 2116
+102	103113 88 37 40 1.00000581 1.00000581 4 28 28 112 3136
+105	103201 11 0 0 0 0 1 0 0 0 0
+106	103212 11 0 0 0 0 1 0 0 0 0
+107	103223 11 0 0 0 0 1 0 0 0 0
+120	103234 35 17 69 1 1.00001162 2 28 44 72 2720
+121	103269 22 61 61 1.00001162 1.00001162 1 46 46 46 2116
+127	103291 67 0 21 0 1 6 0 0 0 0
+128	103358 67 0 21 0 1 6 0 0 0 0
+129	103425 12 21 21 1 1 1 0 0 0 0
+130	103437 14 21 21 1 1 1 368 368 368 135424
+131	103451 138 21 21 0.1 1 10 0 0 0 0
+132	103589 14 21 21 1 1 1 368 368 368 135424
+133	103603 138 21 21 0.1 1 10 0 0 0 0
+138	103741 22 25 25 1.00000576 1.00000576 1 64 64 64 4096
+139	103763 22 57 57 1.00001162 1.00001162 1 64 64 64 4096
+140	103785 22 57 57 1.00001162 1.00001162 1 64 64 64 4096
+143	103807 13 21 21 1 1 1 46 46 46 2116
+155	103820 13 13 13 1 1 1 28 28 28 784
+159	103833 11 0 0 0 0 1 0 0 0 0
+160	103844 11 0 0 0 0 1 0 0 0 0
+161	103855 11 0 0 0 0 1 0 0 0 0
+165	103866 35 18 70 1 1.00001162 2 28 44 72 2720
+166	103901 22 62 62 1.00001162 1.00001162 1 46 46 46 2116
+172	103923 67 0 22 0 1 6 0 0 0 0
+173	103990 67 0 22 0 1 6 0 0 0 0
+174	104057 12 22 22 1 1 1 0 0 0 0
+175	104069 14 22 22 1 1 1 368 368 368 135424
+176	104083 138 22 22 0.1 1 10 0 0 0 0
+177	104221 14 22 22 1 1 1 368 368 368 135424
+178	104235 138 22 22 0.1 1 10 0 0 0 0
+183	104373 22 26 26 1.00000576 1.00000576 1 64 64 64 4096
+184	104395 22 58 58 1.00001162 1.00001162 1 64 64 64 4096
+185	104417 22 58 58 1.00001162 1.00001162 1 64 64 64 4096
+188	104439 13 22 22 1 1 1 46 46 46 2116
+200	104452 13 14 14 1 1 1 28 28 28 784
+204	104465 11 0 0 0 0 1 0 0 0 0
+205	104476 11 0 0 0 0 1 0 0 0 0
+206	104487 11 0 0 0 0 1 0 0 0 0
+210	104498 35 19 71 1 1.00001162 2 28 44 72 2720
+211	104533 22 63 63 1.00001162 1.00001162 1 46 46 46 2116
+217	104555 67 0 23 0 1 6 0 0 0 0
+218	104622 67 0 23 0 1 6 0 0 0 0
+219	104689 12 23 23 1 1 1 0 0 0 0
+220	104701 14 23 23 1 1 1 368 368 368 135424
+221	104715 138 23 23 0.1 1 10 0 0 0 0
+222	104853 14 23 23 1 1 1 368 368 368 135424
+223	104867 138 23 23 0.1 1 10 0 0 0 0
+228	105005 22 27 27 1.00000576 1.00000576 1 64 64 64 4096
+229	105027 22 59 59 1.00001162 1.00001162 1 64 64 64 4096
+230	105049 22 59 59 1.00001162 1.00001162 1 64 64 64 4096
+233	105071 13 23 23 1 1 1 46 46 46 2116
+245	105084 13 15 15 1 1 1 28 28 28 784
+249	105097 11 0 0 0 0 1 0 0 0 0
+250	105108 11 0 0 0 0 1 0 0 0 0
+251	105119 11 0 0 0 0 1 0 0 0 0
+255	105130 13 20 20 1 1 1 28 28 28 784
+256	105143 22 64 64 1.00001162 1.00001162 1 46 46 46 2116
+262	105165 67 0 24 0 1 6 0 0 0 0
+263	105232 67 0 24 0 1 6 0 0 0 0
+264	105299 12 24 24 1 1 1 0 0 0 0
+265	105311 14 24 24 1 1 1 368 368 368 135424
+266	105325 138 24 24 0.1 1 10 0 0 0 0
+267	105463 14 24 24 1 1 1 368 368 368 135424
+268	105477 138 24 24 0.1 1 10 0 0 0 0
+273	105615 22 28 28 1.00000576 1.00000576 1 64 64 64 4096
+274	105637 22 60 60 1.00001162 1.00001162 1 64 64 64 4096
+275	105659 22 60 60 1.00001162 1.00001162 1 64 64 64 4096
+278	105681 13 24 24 1 1 1 46 46 46 2116
+290	105694 13 16 16 1 1 1 28 28 28 784
+294	105707 11 0 0 0 0 1 0 0 0 0
+295	105718 11 0 0 0 0 1 0 0 0 0
+296	105729 11 0 0 0 0 1 0 0 0 0
+418	105740 14 9 9 1 1 1 7504 7504 7504 56310016
+419	105754 14 9 9 1 1 1 7504 7504 7504 56310016
+421	105768 11 9 9 1 1 1 0 0 0 0
+432	105779 11 9 9 1 1 1 0 0 0 0
+447	105790 15 10 10 1 1 1 7504 7504 7504 56310016
+448	105805 15 10 10 1 1 1 7504 7504 7504 56310016
+450	105820 12 10 10 1 1 1 0 0 0 0
+461	105832 12 10 10 1 1 1 0 0 0 0
+476	105844 15 11 11 1 1 1 7504 7504 7504 56310016
+477	105859 15 11 11 1 1 1 7504 7504 7504 56310016
+479	105874 12 11 11 1 1 1 0 0 0 0
+490	105886 12 11 11 1 1 1 0 0 0 0
+505	105898 15 12 12 1 1 1 7504 7504 7504 56310016
+506	105913 15 12 12 1 1 1 7504 7504 7504 56310016
+508	105928 12 12 12 1 1 1 0 0 0 0
+519	105940 12 12 12 1 1 1 0 0 0 0
+11	105952 34 71 71 1.00001162 1.00001162 1 31669535.283993 31669535.283993 31669535.283993 1.0029594651041e+15
+13	105986 34 71 71 1.00001162 1.00001162 1 31669535.283993 31669535.283993 31669535.283993 1.0029594651041e+15
+33	106020 34 71 71 1.00001162 1.00001162 1 31669535.283993 31669535.283993 31669535.283993 1.0029594651041e+15
+35	106054 34 71 71 1.00001162 1.00001162 1 31669535.283993 31669535.283993 31669535.283993 1.0029594651041e+15
+55	106088 34 71 71 1.00001162 1.00001162 1 31669535.283993 31669535.283993 31669535.283993 1.0029594651041e+15
+57	106122 34 71 71 1.00001162 1.00001162 1 31669535.283993 31669535.283993 31669535.283993 1.0029594651041e+15
+77	106156 34 71 71 1.00001162 1.00001162 1 31669535.283993 31669535.283993 31669535.283993 1.0029594651041e+15
+79	106190 34 71 71 1.00001162 1.00001162 1 31669535.283993 31669535.283993 31669535.283993 1.0029594651041e+15
+131	106224 35 71 71 1.00001162 1.00001162 1 31669535.283993 31669535.283993 31669535.283993 1.0029594651041e+15
+133	106259 35 71 71 1.00001162 1.00001162 1 31669535.283993 31669535.283993 31669535.283993 1.0029594651041e+15
+176	106294 35 71 71 1.00001162 1.00001162 1 31669535.283993 31669535.283993 31669535.283993 1.0029594651041e+15
+178	106329 35 71 71 1.00001162 1.00001162 1 31669535.283993 31669535.283993 31669535.283993 1.0029594651041e+15
+221	106364 35 71 71 1.00001162 1.00001162 1 31669535.283993 31669535.283993 31669535.283993 1.0029594651041e+15
+223	106399 35 71 71 1.00001162 1.00001162 1 31669535.283993 31669535.283993 31669535.283993 1.0029594651041e+15
+266	106434 35 71 71 1.00001162 1.00001162 1 31669535.283993 31669535.283993 31669535.283993 1.0029594651041e+15
+268	106469 35 71 71 1.00001162 1.00001162 1 31669535.283993 31669535.283993 31669535.283993 1.0029594651041e+15
+
